@@ -33,8 +33,10 @@ layout: bullets
 * What's Github, Gitlab etc.?
 
 ---
-layout: center
+layout: two-cols
 ---
+
+<template v-slot:default>
 
 ## Version Control
 
@@ -45,6 +47,14 @@ A way to track changes to <strike>files</strike>.
 A way to track changes to things.
 
 (Often these are changes to files in some directory)
+
+</template>
+
+<template v-slot:right>
+
+![https://www.reddit.com/r/ProgrammerHumor/comments/72rki5/the_real_version_control/](/images/vc-meme.png)
+
+</template>
 
 ---
 layout: two-cols
@@ -182,7 +192,7 @@ layout: section
 
 ---
 layout: intro-image
-image: ./public/images/vscode.png
+image: /images/vscode.png
 ---
 
 ---
@@ -398,6 +408,8 @@ layout: two-cols
  - Could you just *rebase* this on main?
  - Could you *squash* the commits?
  - This has *merge conflicts* now, could you fix these?
+
+Ask for help!
 
 </template>
 
