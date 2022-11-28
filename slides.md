@@ -221,6 +221,67 @@ index f2a886f..cf0a1d7 100644
 ```
 
 ---
+layout: two-cols
+---
+
+<template v-slot:default>
+
+# `git stash`
+
+Stashing allows you to store your changes so they're out of the way
+and then restore them afterwards. 
+
+It is a stack (like a *stack of plates*), so the most recently stashed
+changes will be the first to be "popped" off the top.
+
+```sh
+git stash # store some changes
+git stash pop # try to pop the changes back
+```
+
+</template>
+
+<template v-slot:right>
+
+```
+➜  4c-git-tutorial git:(main) ✗ git checkout update-readme
+error: Your local changes to the following files 
+would be overwritten by checkout: README.md
+Please commit your changes or stash them 
+before you switch branches.
+Aborting
+➜  4c-git-tutorial git:(main) ✗ git stash
+Saved working directory and index state 
+WIP on main: 95da8da Oops
+➜  4c-git-tutorial git:(main) ✗ git stash list
+stash@{0}: WIP on main: 95da8da Oops
+```
+
+```sh
+➜  4c-git-tutorial git:(main) ✗ git diff main stash@{0}
+diff --git a/README.md b/README.md
+index b9dd7df..f61e728 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,3 @@
+
+-I would like a message like this! Oops!
++I would like a message like this! Oops! 
++A little bit of editing!
+```
+
+</template>
+
+---
+
+# Useful commands and scenarios
+
+ - 🍒 `git cherry-pick <commit-sha>`: you want to pick up some changes from somewhere else
+    into your branch. You may have to merge conflicts!
+ - 🔙 `git reset --soft HEAD~1`: This says to reset the current branch's `HEAD` to "minus 1" i.e. undo the last commit. `--soft` means undo the last commit but keep the changes I made. A common use case is when pushing to a branch and seeing the tests fail, you might then `git reset --soft HEAD~1`, do a small fix and `git push -f`. It can also be used to _squash_ commits by `git reset --soft HEAD~n && git commit -m "All in one!"`
+ - 🔍 `git blame <FILE>`: Find out who made changes to different lines in a file and when
+
+---
 layout: section
 ---
 
@@ -271,8 +332,9 @@ git checkout main && git pull upstream main
 git checkout my-feature
 git rebase main # can be quite painful
 git add <changed-files> # <----.
-                        #      |
+                        #      | 
 git rebase --continue   # -----'
+# if things get too much: git rebase --abort 
 git push --force # be careful!
 ```
 
@@ -286,8 +348,43 @@ git checkout my-feature
 git merge main # can be quite painful
 git add <changed-files>
 git merge --continue
+# if things get too much: git merge --abort 
 git push
 ```
+
+---
+
+# Workflows
+
+**Github** workflows are computations that are triggered by merging/pushing commits.
+These are very useful for testing whether or not a pull request will break changes.
+
+```yaml
+# What should trigger running this workflow?
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+jobs:
+  run:
+    steps:
+      # Use the github action for checking out code
+      - uses: actions/checkout@v3
+      # Use the github action for setting up python
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r requirements.txt
+      - run: python run.py
+```
+
+---
+
+# Protect Important Branches!
+
+<img width="700" src="/images/protect.png"/>
 
 ---
 layout: two-cols
