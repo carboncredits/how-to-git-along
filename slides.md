@@ -168,7 +168,6 @@ git push -u origin my-feature
 
 ```
 ➜  4c-git-tutorial git:(main) git push
-Enter passphrase for key '/Users/patrickferris/.ssh/id_rsa': 
 To github.com:patricoferris/4c-git-tutorial.git
  ! [rejected]        main -> main (fetch first)
 error: failed to push some refs to 'github.com:patricoferris/4c-git-tutorial.git'
