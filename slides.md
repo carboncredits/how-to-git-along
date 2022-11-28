@@ -197,6 +197,33 @@ image: /images/vscode.png
 
 ---
 
+## `git fetch` & `git pull`
+
+Fetching allows you to download the changes in some remote.
+
+Pulling is similar but **also tries to integrate** those changes.
+
+
+### Testing someone else's changes locally
+
+```sh
+# Add a new remote called avsm
+git remote add avsm https://github.com/avsm/4c-git-tutorial
+# Fetch the branches, files etc. from avsm
+git fetch avsm
+# Checkout the branch cool-new-feature from avsm
+git checkout avsm/cool-new-feature
+```
+
+### Updating to upstream's latest changes
+
+```sh
+git checkout main
+git pull upstream main
+```
+
+---
+
 ## `git log`
 
 This allows you to inspect the commits (and their **well-written messages**)
